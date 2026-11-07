@@ -36,6 +36,7 @@ function harness() {
     config: { HIDDEN_APPS: /service|companion|dummy/i },
     settings: createTestSettings({
       continueWatching: false,
+      continueWatchingAll: false,
       continueWatchingApps: [],
     }),
     apps: {

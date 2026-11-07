@@ -13,7 +13,7 @@ const open = async (page, background = "waves", url = "/") => {
     if (!localStorage.getItem("aerotizen.settings.v1")) {
       localStorage.setItem(
         "aerotizen.settings.v1",
-        JSON.stringify({ background, speed: 1, showWeather: false, weatherPhoto: false }),
+        JSON.stringify({ glassSettings: false, background, speed: 1, showWeather: false, weatherPhoto: false }),
       );
     }
   }, background);

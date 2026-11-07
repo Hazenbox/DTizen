@@ -61,7 +61,7 @@
   letter-spacing: -5px;
   line-height: 0.87;
   white-space: nowrap;
-  font-family: "SamsungOne", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-ui, "SamsungOne", "Helvetica Neue", "Segoe UI", Arial, sans-serif);
   font-variant-numeric: tabular-nums lining-nums;
   font-feature-settings:
     "tnum" 1,
@@ -92,7 +92,7 @@
     flex-direction: row;
     align-items: baseline;
     font-size: 110px;
-    font-family: "SamsungOne", "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font-ui, "SamsungOne", "Helvetica Neue", Arial, sans-serif);
     font-weight: 300;
     line-height: 1.05;
     letter-spacing: -5px;
@@ -160,7 +160,7 @@
   }
 
   .date {
-    font-family: "SamsungOne", "Segoe UI", Arial, sans-serif;
+    font-family: var(--font-ui, "SamsungOne", "Segoe UI", Arial, sans-serif);
     font-size: 22px;
     font-weight: 700;
     letter-spacing: 1.7px;

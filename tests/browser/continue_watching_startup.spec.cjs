@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 const prime = "org.tizen.primevideo",
-  youtube = "9Ur5IzDKqV.TizenYouTube";
+  netflix = "org.tizen.netflix-app";
 
 for (const correctClock of [false, true]) {
   test(
@@ -8,7 +8,7 @@ for (const correctClock of [false, true]) {
       ? "a cold TV clock correction does not cancel startup retries"
       : "a late startup feed appears without reopening AeroTizen or reloading settled cards",
     async ({ page }) => {
-      const reads = { prime: 0, youtube: 0 },
+      const reads = { prime: 0, netflix: 0 },
         errors = [];
       page.on("pageerror", (e) => errors.push(e.message));
       await page.clock.install({ time: new Date(correctClock ? 7680 : "2026-10-26T20:00:00Z") });
@@ -16,15 +16,15 @@ for (const correctClock of [false, true]) {
       await page.route("http://127.0.0.1:47790/**", (r) => r.fulfill({ body: "{}" }));
       await page.route("http://localhost:9013/**", (r) => {
         const isPrime = r.request().headers().app_id === "3201910019365";
-        const count = ++reads[isPrime ? "prime" : "youtube"];
+        const count = ++reads[isPrime ? "prime" : "netflix"];
         const records =
           isPrime && count < 9
             ? []
             : [
                 {
-                  app_id: isPrime ? "3201910019365" : "111299001912",
-                  content_id: isPrime ? "prime-item" : "youtube-item",
-                  content_title: isPrime ? "Late Prime programme" : "YouTube programme",
+                  app_id: isPrime ? "3201910019365" : "3201907018807",
+                  content_id: isPrime ? "prime-item" : "netflix-item",
+                  content_title: isPrime ? "Late Prime programme" : "Netflix programme",
                   payload: "saved-launch-data",
                   timestamp: isPrime ? 1000 : 2000,
                 },
@@ -37,15 +37,16 @@ for (const correctClock of [false, true]) {
         });
       });
       await page.addInitScript(
-        ({ prime, youtube, correctClock }) => {
+        ({ prime, netflix, correctClock }) => {
           localStorage.setItem(
             "aerotizen.settings.v1",
             JSON.stringify({
-              home: [youtube],
+              glassSettings: false,
+              home: [netflix],
               showWeather: false,
               background: "black",
               continueWatching: true,
-              continueWatchingApps: [prime, youtube],
+              continueWatchingApps: [prime, netflix],
             }),
           );
           window.providerLaunches = [];
@@ -68,7 +69,7 @@ for (const correctClock of [false, true]) {
               getAppsInfo: (done) => {
                 const inventory = [
                   { id: prime, name: "Prime Video", packageId: prime },
-                  { id: youtube, name: "YouTube", packageId: "9Ur5IzDKqV" },
+                  { id: netflix, name: "Netflix", packageId: "NetflixPkg" },
                 ];
                 if (correctClock) window.releaseInventory = () => done(inventory);
                 else done(inventory);
@@ -83,7 +84,7 @@ for (const correctClock of [false, true]) {
             },
           };
         },
-        { prime, youtube, correctClock },
+        { prime, netflix, correctClock },
       );
       await page.goto("/");
       if (correctClock) {
@@ -114,7 +115,7 @@ for (const correctClock of [false, true]) {
         ),
       ).toBe(true);
       await page.clock.fastForward(120000);
-      expect(reads).toEqual({ prime: 9, youtube: 1 });
+      expect(reads).toEqual({ prime: 9, netflix: 1 });
       expect(await page.evaluate(() => window.providerLaunches)).toEqual([]);
       expect(errors).toEqual([]);
     },
@@ -140,23 +141,24 @@ test("settled cards reorder on the existing clock tick without rereading feeds",
         {
           app_id: id,
           content_id: id,
-          content_title: id === "3201910019365" ? "Older Prime programme" : "Newer YouTube programme",
-          timestamp: id === "3201910019365" ? recent - 3600 : recent,
+          content_title: id === "3201910019365" ? "Newer Prime programme" : "Older Netflix programme",
+          timestamp: id === "3201910019365" ? recent : recent - 3600,
           payload: "saved-launch-data",
         },
       ]),
     });
   });
   await page.addInitScript(
-    ({ prime, youtube }) => {
+    ({ prime, netflix }) => {
       localStorage.setItem(
         "aerotizen.settings.v1",
         JSON.stringify({
+          glassSettings: false,
           home: [prime],
           showWeather: false,
           background: "black",
           continueWatching: true,
-          continueWatchingApps: [prime, youtube],
+          continueWatchingApps: [prime, netflix],
         }),
       );
       window.tizen = {
@@ -164,7 +166,7 @@ test("settled cards reorder on the existing clock tick without rereading feeds",
           getAppsInfo: (done) =>
             done([
               { id: prime, packageId: prime, name: "Prime Video" },
-              { id: youtube, packageId: "9Ur5IzDKqV", name: "YouTube" },
+              { id: netflix, packageId: "NetflixPkg", name: "Netflix" },
             ]),
           getAppMetaData: () => [
             { key: "http://samsung.com/tv/metadata/app_support_continue_watching", value: "true" },
@@ -172,15 +174,15 @@ test("settled cards reorder on the existing clock tick without rereading feeds",
         },
       };
     },
-    { prime, youtube },
+    { prime, netflix },
   );
   await page.goto("/");
   const titles = page.locator("[data-continue-part=title]");
-  await expect(titles).toHaveText(["Older Prime programme", "Newer YouTube programme"]);
+  await expect(titles).toHaveText(["Older Netflix programme", "Newer Prime programme"]);
   expect(reads).toHaveLength(2);
   await page.clock.setSystemTime(corrected);
   await page.clock.fastForward(10000);
-  await expect(titles).toHaveText(["Newer YouTube programme", "Older Prime programme"]);
+  await expect(titles).toHaveText(["Newer Prime programme", "Older Netflix programme"]);
   expect(await page.evaluate(() => AeroTizen.continueWatching.items.map((item) => item.timestamp))).toEqual([
     recent,
     recent - 3600,

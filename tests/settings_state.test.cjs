@@ -255,15 +255,25 @@ test("Continue Watching selection is persisted with immutable snapshots", () => 
   const h = harness();
   const before = h.settings.getSnapshot();
   h.actions.setContinueWatching(true);
-  h.actions.toggleContinueApp("video.app");
+  h.settings.update({ continueWatchingAll: false });
+  h.actions.toggleContinueApp("video.app", []);
   const selected = h.settings.getSnapshot();
   assert.deepEqual(selected.continueWatchingApps, ["video.app"]);
   assert.deepEqual(before.continueWatchingApps, []);
   assert.equal(Object.isFrozen(selected.continueWatchingApps), true);
   h.actions.setContinueWatching(false);
   assert.deepEqual(h.settings.getSnapshot().continueWatchingApps, ["video.app"], "off retains the chosen apps");
-  h.actions.toggleContinueApp("video.app");
+  h.actions.toggleContinueApp("video.app", []);
   assert.deepEqual(h.settings.getSnapshot().continueWatchingApps, []);
+});
+
+test("choosing one Continue Watching app while every app is on keeps the others", () => {
+  const h = harness();
+  assert.equal(h.settings.getSnapshot().continueWatchingAll, true);
+  h.actions.toggleContinueApp("video.app", ["video.app", "other.app"]);
+  const after = h.settings.getSnapshot();
+  assert.equal(after.continueWatchingAll, false);
+  assert.deepEqual(after.continueWatchingApps, ["other.app"]);
 });
 
 test("colour drafts do not save until Apply and cancellation retains the full saved background", () => {

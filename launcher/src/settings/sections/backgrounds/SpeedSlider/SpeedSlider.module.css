@@ -38,6 +38,12 @@
   font-size: 20px;
 }
 
+/* Glisse's slider, which sizes itself through its own custom properties. */
+.glisse {
+  width: 260px;
+  flex: 0 0 auto;
+}
+
 .track {
   position: relative;
   height: 10px;

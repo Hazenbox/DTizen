@@ -31,7 +31,7 @@ for (const [name, url] of [
     await page.addInitScript(() => {
       localStorage.setItem(
         "aerotizen.settings.v1",
-        JSON.stringify({ home: ["demo0", "demo1"], background: "black", showWeather: false }),
+        JSON.stringify({ glassSettings: false, home: ["demo0", "demo1"], background: "black", showWeather: false }),
       );
     });
     await page.goto(url);
@@ -67,7 +67,7 @@ for (const [name, url] of [
     expect(componentCss.nested, "Chromium 69 receives flattened CSS in development and production").toEqual([]);
 
     const standalone = await page
-      .locator('#settings-appearance, #settings-appearance [data-focused="true"]')
+      .locator('#settings-appearance, #home-card-columns [data-key="home-card-columns:3"]')
       .evaluateAll((nodes) =>
         nodes.map((node) => {
           const properties = node.hasAttribute("data-key")
@@ -149,7 +149,7 @@ test("Continue Watching demo is opt-in, local to Vite and uses separate preferen
   const heights = await page
     .locator("#continue-items > [data-key]")
     .evaluateAll((cards) => cards.map((card) => card.offsetHeight));
-  expect(heights).toEqual(Array(5).fill(318));
+  expect(heights).toEqual(Array(5).fill(355));
   await expect(page.locator("[data-continue-part=image]").first()).toHaveJSProperty("complete", true);
   expect(
     await page

@@ -1,12 +1,22 @@
+import type { AppearanceStyle, SettingsSnapshot } from "../../contracts/preferences";
 import { useTranslation } from "../../shared/i18n/useTranslation";
 import { ChoiceGroup } from "../components/ChoiceGroup";
+import { GlassSegmented } from "../components/GlassSegmented/GlassSegmented";
 import { SettingsSection } from "../components/SettingsSection/SettingsSection";
 import type { SettingsSectionProps } from "../types";
 
 const APPEARANCE_OPTIONS = [
-  { value: false, labelKey: "appearance.classic" },
-  { value: true, labelKey: "appearance.glass" },
+  { value: "classic", labelKey: "appearance.classic" },
+  { value: "glass", labelKey: "appearance.glass" },
+  { value: "uos", labelKey: "appearance.uos" },
 ] as const;
+
+const appearanceOf = ({ glassSettings, uosAppearance }: SettingsSnapshot): AppearanceStyle => {
+  if (!glassSettings) {
+    return "classic";
+  }
+  return uosAppearance ? "uos" : "glass";
+};
 
 const HOME_CARD_COLUMNS_OPTIONS = [
   { value: "5", labelKey: "appearance.small" },
@@ -24,12 +34,12 @@ export const AppearanceSettings = ({ settings, actions }: SettingsSectionProps) 
   return (
     <>
       <SettingsSection title={t("appearance.title")}>
-        <ChoiceGroup
+        <GlassSegmented
           id="settings-appearance"
           label={t("appearance.title")}
-          value={settings.glassSettings === true}
+          value={appearanceOf(settings)}
           options={APPEARANCE_OPTIONS}
-          onSelect={actions.setGlassSettings}
+          onSelect={actions.setAppearance}
         />
       </SettingsSection>
       <SettingsSection title={t("appearance.size")}>

@@ -195,8 +195,17 @@
   function updateMessage() {
     cw.messageKey = !A.apps.ready ? "continue.findingApps" : !cw.sources.length ? "continue.noApps" : "";
   }
+  // YouTube never joins the row.
+  function isExcluded(source) {
+    return /youtube/i.test(source.id + " " + source.name);
+  }
   function isSelected(source) {
-    return !!source.storeId && A.settings.getSnapshot().continueWatchingApps.indexOf(source.id) >= 0;
+    var settings = A.settings.getSnapshot();
+    return (
+      !!source.storeId &&
+      !isExcluded(source) &&
+      (settings.continueWatchingAll === true || settings.continueWatchingApps.indexOf(source.id) >= 0)
+    );
   }
 
   function remove(source) {
@@ -384,6 +393,7 @@
     A.settings.subscribe(function () {
       var next = JSON.stringify([
         A.settings.getSnapshot().continueWatching,
+        A.settings.getSnapshot().continueWatchingAll,
         A.settings.getSnapshot().continueWatchingApps,
       ]);
       if (signature !== next) {
@@ -400,6 +410,7 @@
     });
     signature = JSON.stringify([
       A.settings.getSnapshot().continueWatching,
+      A.settings.getSnapshot().continueWatchingAll,
       A.settings.getSnapshot().continueWatchingApps,
     ]);
     cw.refresh();

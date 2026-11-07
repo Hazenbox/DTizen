@@ -15,6 +15,7 @@ for (const [build, url] of [
       localStorage.setItem(
         "aerotizen.settings.v1",
         JSON.stringify({
+          glassSettings: false,
           home: ["demo0", "demo1", "demo2", "demo3"],
           homeAppLayout: "scroll",
           background: "black",

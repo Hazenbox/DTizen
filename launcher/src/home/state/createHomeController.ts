@@ -188,9 +188,13 @@ export const createHomeController = (
       return all.length ? [...appLayout, ["back-to-top"]] : appLayout;
     }
     const { items, inputs } = inventory.getSnapshot();
-    const continueRows =
-      settings.getSnapshot().continueWatching && items.length ? [items.map((item) => "continue:" + item.key)] : [];
+    const { continueWatching, glassSettings, uosAppearance } = settings.getSnapshot();
+    const continueRows = continueWatching && items.length ? [items.map((item) => "continue:" + item.key)] : [];
     const inputRows = inputs.length ? [inputs.map(sourceKey)] : [];
+    // UOS leads with Continue Watching, as the Apple TV home screen does.
+    if (glassSettings && uosAppearance) {
+      return [HEADER_KEYS, ...continueRows, ...appRows, ...inputRows];
+    }
     return [...appLayout, ...continueRows, ...inputRows];
   };
   const focus = () => {

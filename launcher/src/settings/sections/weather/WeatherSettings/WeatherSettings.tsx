@@ -59,6 +59,7 @@ export const WeatherSettings = ({ settings, actions, active }: Props) => {
             {t("common.automatic")}
           </ChoiceOption>
           <WeatherSearch
+            glass={settings.glassSettings && settings.uosAppearance}
             inputRef={search.inputRef}
             value={search.query}
             onSelect={search.focusQuery}

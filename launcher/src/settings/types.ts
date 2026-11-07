@@ -12,6 +12,7 @@ import type {
   SettingsBridge,
 } from "../contracts/launcher";
 import type {
+  AppearanceStyle,
   DateFormat,
   SettingsSnapshot,
   SettingsStore,
@@ -68,11 +69,11 @@ export interface SettingsActions {
   openStore(): void;
   preview(): void;
   saveInputName(port: string, value: string): void;
+  setAppearance(appearance: AppearanceStyle): void;
   setBackground(background: string): void;
   setClockLayout(layout: "classic" | SettingsValues["aeroClockStyle"]): void;
   setContinueWatching(enabled: boolean): void;
   setDateFormat(format: DateFormat): void;
-  setGlassSettings(enabled: boolean): void;
   setGradientStop(stop: 0 | 1): void;
   setHdmiKeepVisible(port: string, keep: boolean): void;
   setHdmiVisibility(hide: boolean): void;
@@ -84,12 +85,13 @@ export interface SettingsActions {
   setNetworkVisible(visible: boolean): void;
   setNumerals(numerals: "latn" | "arab"): void;
   setSpeed(direction: number): void;
+  setSpeedTo(speed: number): void;
   setTempUnit(unit: TemperatureUnit): void;
   setTimeFormat(format: TimeFormat | "none"): void;
   setWeatherPhoto(enabled: boolean): void;
   setWeatherVisible(visible: boolean): void;
   toggleApp(id: string): void;
-  toggleContinueApp(id: string): void;
+  toggleContinueApp(id: string, visible: readonly string[]): void;
   useSamsungHome(): void;
 }
 // adjusting: OK was pressed on the speed slider, so Left/Right change the speed instead of moving focus.

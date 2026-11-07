@@ -12,6 +12,7 @@ test.beforeEach(async ({ page }) => {
     localStorage.setItem(
       "aerotizen.settings.v1",
       JSON.stringify({
+        glassSettings: false,
         background: "black",
         showWeather: false,
         home: ["demo0", "demo1", "demo2"],

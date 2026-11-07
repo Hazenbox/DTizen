@@ -198,9 +198,10 @@ test("settings publish updates and reloads, and unsubscribe is safe to repeat", 
   assert.deepEqual(values, ["snow", "black"]);
 });
 
-test("Continue Watching requires explicit opt-in and validates saved source choices", () => {
+test("Continue Watching starts on for every app and validates saved source choices", () => {
   const { settings } = loadSettings({});
-  assert.equal(settings.getSnapshot().continueWatching, false);
+  assert.equal(settings.getSnapshot().continueWatching, true);
+  assert.equal(settings.getSnapshot().continueWatchingAll, true);
   assert.deepEqual(Array.from(settings.getSnapshot().continueWatchingApps), []);
   const key = "aerotizen.settings.v1";
   const restored = loadSettings({
@@ -209,7 +210,8 @@ test("Continue Watching requires explicit opt-in and validates saved source choi
       continueWatchingApps: ["video.app", "video.app", null, {}, "bad id", "other-app"],
     }),
   }).settings;
-  assert.equal(restored.getSnapshot().continueWatching, false);
+  assert.equal(restored.getSnapshot().continueWatching, true, "an invalid saved value falls back to the default");
+  assert.equal(restored.getSnapshot().continueWatchingAll, false, "saved source choices stay as chosen");
   assert.deepEqual(Array.from(restored.getSnapshot().continueWatchingApps), ["video.app", "other-app"]);
 });
 

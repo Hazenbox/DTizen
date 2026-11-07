@@ -1,3 +1,36 @@
+/* Inter, by The Inter Project Authors, under the SIL Open Font License 1.1 (assets/fonts/README.txt). */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/Inter-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/Inter-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/Inter-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/Inter-Bold.ttf") format("truetype");
+}
+
 /* The hidden attribute must win over component display rules, including SVG status hosts. */
 [hidden] {
   display: none !important;

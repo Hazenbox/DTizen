@@ -37,6 +37,15 @@
   white-space: nowrap;
 }
 
+/* Glisse's input draws its own glass. */
+.glisse {
+  flex: 1;
+  max-width: none;
+  height: 52px;
+  border-radius: 26px;
+  font-size: 20px;
+}
+
 .field {
   flex: 1 1 0;
   min-width: 0;

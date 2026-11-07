@@ -80,6 +80,8 @@ test("opt-in discovery, selection, merged row, remote navigation, launch and res
         localStorage.setItem(
           "aerotizen.settings.v1",
           JSON.stringify({
+            glassSettings: false,
+            continueWatching: false,
             home: [prime],
             tempUnit: "C",
             timeFormat: "24",

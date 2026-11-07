@@ -134,6 +134,35 @@ body {
   --menu-option-text: rgba(243, 246, 255, 0.79);
   --menu-backdrop: rgba(5, 8, 16, 0.53);
   --network-offline: #ff6b6b;
+  /* Glisse's dark tokens (vendor/glisse/styles.css), set here because Chromium 69 ignores the
+     :where() rules they come in. Glisse's controls read them in every theme. */
+  --lg-foreground: rgb(255 255 255);
+  --lg-muted: rgb(235 235 245 / 0.6);
+  --lg-glass: rgb(40 40 40 / 0.62);
+  --lg-glass-active: rgb(70 70 70 / 0.62);
+  --lg-edge: rgb(255 255 255 / 0.08);
+  --lg-drop: transparent;
+  --lg-selection: rgb(255 255 255 / 0.145);
+  --lg-lens: rgb(255 255 255 / 0.055);
+  --lg-lens-drop: transparent;
+  --lg-segment-track: transparent;
+  --lg-segment-thumb: rgb(235 235 245 / 0.3);
+  --lg-segment-label: rgb(255 255 255);
+  --lg-segment-lens: transparent;
+  --lg-surface: rgb(28 28 31 / 0.86);
+  --lg-surface-edge: rgb(255 255 255 / 0.13);
+  --lg-shadow: rgb(0 0 0 / 0.38);
+  --lg-highlight: rgb(235 235 245 / 0.13);
+  --lg-separator: rgb(235 235 245 / 0.16);
+  --lg-track: rgb(235 235 245 / 0.3);
+  --lg-rail: rgb(255 255 255 / 0.1);
+  --lg-on: #30d158;
+  --lg-destructive: #ff4245;
+  --lg-fill: #0091ff;
+  --lg-ring: rgb(255 255 255 / 0.9);
+  --lg-lens-shine: 1;
+  --lg-rim-shine: 0.13;
+  --lg-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 body.glass-ui {
   --input-icon-badge: transparent;
@@ -161,16 +190,10 @@ body.glass-ui {
   );
   --input-card-shadow: inset 0 1px rgba(255, 255, 255, 0.16), 0 4px 13px rgba(0, 0, 0, 0.1);
   --input-focus-shadow: inset 0 1px rgba(255, 255, 255, 0.28), 0 7px 18px rgba(0, 0, 0, 0.25);
-  --focus: #edf2ff;
-  --focus-glow: rgba(237, 242, 255, 0.23);
-  --header-tab-surface: linear-gradient(
-    165deg,
-    rgba(255, 255, 255, 0.19) 0%,
-    rgba(60, 68, 78, 0.43) 22%,
-    rgba(20, 25, 35, 0.62) 63%,
-    rgba(15, 20, 28, 0.72) 100%
-  );
-  --header-tab-shadow: inset 0 1px rgba(255, 255, 255, 0.24), 0 13px 32px rgba(0, 0, 0, 0.27);
+  --focus: #0091ff;
+  --focus-glow: rgba(0, 145, 255, 0.23);
+  --header-tab-surface: rgb(40 40 40 / 0.62);
+  --header-tab-shadow: inset 0 0 0 0.5px rgb(235 235 245 / 0.13), 0 1px 3px rgb(0 0 0 / 0.38);
   --header-tab-text: rgba(234, 239, 247, 0.78);
   --header-tab-isolation: isolate;
   --header-tab-gap: 12px;
@@ -197,6 +220,53 @@ body.glass-ui {
   --continue-episode-text: #d5deec;
   --continue-progress-track: rgba(217, 227, 242, 0.24);
   --menu-focus-surface: rgba(236, 242, 255, 0.18);
+}
+/* UOS builds on Glass: wide tiles, a focus that lifts and lights the tile, and Glisse's glass.
+   Glisse's dark tokens: fill #0091ff, edge rgb(235 235 245 / 0.13), selection rgb(255 255 255 / 0.145). */
+body.uos-ui {
+  --continue-card-width: 480px;
+  --continue-art-height: 270px;
+  --home-card-radius: 20px;
+  --home-card-focus-scale: 1.09;
+  --home-card-focus-lift: -6px;
+  --home-artwork-focus-scale: 1.06;
+  --home-card-transition: transform, box-shadow;
+  --home-card-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --home-card-caption: 1;
+  --home-card-edge: inset 0 0 0 0.5px rgb(235 235 245 / 0.2), inset 0 1px rgb(255 255 255 / 0.12);
+  --home-card-sheen: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.08) 30%,
+    rgba(255, 255, 255, 0) 52%
+  );
+  --home-card-focus-shadow: 0 36px 56px -10px rgba(0, 0, 0, 0.62), 0 12px 24px rgba(0, 0, 0, 0.36);
+  --home-card-move-shadow: 0 44px 64px -10px rgba(0, 0, 0, 0.7), 0 14px 28px rgba(0, 0, 0, 0.4);
+  --home-section-heading-text: rgb(255 255 255 / 0.9);
+  --header-focus-surface: rgb(255 255 255 / 0.145);
+  --header-focus-shadow: inset 0 0 0 0.5px rgb(235 235 245 / 0.2);
+  --settings-surface: rgb(28 28 31 / 0.96);
+  --settings-main-surface: transparent;
+  --settings-border: rgb(235 235 245 / 0.13);
+  --settings-radius: 32px;
+  --control-radius: 28px;
+  --surface-control: rgb(235 235 245 / 0.08);
+  --border-control: rgb(235 235 245 / 0.13);
+  --settings-shadow: 0 30px 60px rgb(0 0 0 / 0.38), inset 0 1px rgb(255 255 255 / 0.1);
+  --settings-focus-border: rgb(255 255 255 / 0.9);
+  --settings-sidebar-focus-surface: rgb(255 255 255 / 0.145);
+  --settings-content-focus-surface: rgb(255 255 255 / 0.08);
+  --choice-selected-surface: rgb(0 145 255 / 0.28);
+  --choice-selected-border: rgb(0 145 255 / 0.7);
+  --choice-focused-surface: rgb(255 255 255 / 0.145);
+  --selection-surface: #0091ff;
+  --menu-surface: rgb(28 28 31 / 0.96);
+  --menu-border: rgb(235 235 245 / 0.13);
+  --menu-focus-surface: rgb(255 255 255 / 0.145);
+  --continue-surface: rgb(40 40 40 / 0.62);
+  --continue-shadow: inset 0 0 0 0.5px rgb(235 235 245 / 0.13), 0 10px 24px rgba(0, 0, 0, 0.28);
+  --font-ui: "Inter", "SF Pro Display", -apple-system, "Roboto", "SamsungOne", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-ui);
 }
 
 /* Solid colours keep their full range. Floating Home text follows luminance. */

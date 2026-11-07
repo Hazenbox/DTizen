@@ -1,0 +1,33 @@
+/* Glisse's tokens come from themes.css. Sized for a TV, through the control's own custom
+   properties: the bar is 76px tall, as the header's own tabs are. */
+.group {
+  font-family: var(--font-ui, "SamsungOne", "Roboto", Arial, sans-serif);
+
+  .bar {
+    --lg-tab-width: 190px;
+    --lg-tab-height: 60px;
+    --lg-tab-inset: 8px;
+    --lg-lens-grow-x: 44px;
+    --lg-lens-grow-y: 28px;
+  }
+
+  /* Glisse's own class names are global, so these rules name them with :global(). */
+  /* stylelint-disable selector-pseudo-class-no-unknown */
+  .bar :is(:global(.lg-tab), :global(.lg-tab-copy)) {
+    font-size: 26px;
+    font-weight: 500;
+  }
+
+  /* The remote's focus on a tab, which Glisse's own :focus-visible ring does not cover. */
+  .bar :global(.lg-tab)[data-focused="true"] {
+    outline: 3px solid var(--lg-ring);
+    outline-offset: -3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar :global(.lg-tab) {
+      transition-duration: 0s;
+    }
+  }
+  /* stylelint-enable selector-pseudo-class-no-unknown */
+}

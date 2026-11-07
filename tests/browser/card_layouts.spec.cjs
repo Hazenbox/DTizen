@@ -76,7 +76,7 @@ test("a saved rectangle layout opens as squares and retains its row count", asyn
   await page.addInitScript(() => {
     localStorage.setItem(
       "aerotizen.settings.v1",
-      JSON.stringify({ homeCardMode: "rectangle", homeCardColumns: null, cardSize: "small" }),
+      JSON.stringify({ glassSettings: false, homeCardMode: "rectangle", homeCardColumns: null, cardSize: "small" }),
     );
   });
   await page.goto("/");

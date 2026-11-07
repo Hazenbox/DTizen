@@ -1,0 +1,18 @@
+/* Sized for a TV, over Glisse's own button. */
+.choice {
+  flex: 0 1 200px;
+  min-width: 160px;
+  max-width: 100%;
+  height: 72px;
+  padding: 10px 28px;
+  border-radius: 36px;
+  font-family: var(--font-ui, "SamsungOne", "Roboto", Arial, sans-serif);
+  font-size: 20px;
+  line-height: 24px;
+  white-space: normal;
+
+  &[data-focused="true"] {
+    outline: 3px solid var(--lg-ring);
+    outline-offset: 2px;
+  }
+}

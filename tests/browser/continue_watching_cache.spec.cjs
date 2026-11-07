@@ -46,7 +46,7 @@ async function fixture(page, initialRecords) {
         window.AeroTizen = {
           config: { HIDDEN_APPS: /hidden/ },
           apps: { inventory: [{ id: 'prime', packageId: 'prime', name: 'Prime' },
-            { id: 'youtube', packageId: 'youtube', name: 'YouTube' }], ready: true, subscribe: function () {} },
+            { id: 'netflix', packageId: 'netflix', name: 'Netflix' }], ready: true, subscribe: function () {} },
           settings: { getSnapshot: function () { return preferences; },
             update: function (patch) { preferences = Object.assign({}, preferences, patch); listeners.forEach(function (fn) { fn(); }); },
             subscribe: function (fn) { listeners.push(fn); } },
@@ -87,7 +87,7 @@ async function fixture(page, initialRecords) {
 const record = (id) => ({
   app_id: id,
   content_id: "item-" + id,
-  content_title: id === "123" ? "Prime programme" : "YouTube programme",
+  content_title: id === "123" ? "Prime programme" : "Netflix programme",
   payload: "launch-data",
   timestamp: 1000,
 });
@@ -97,8 +97,8 @@ test("a cached response for one app cannot replace another app’s feed", async 
   try {
     await page.goto(feed.url);
     await expect(page.locator("#items p")).toHaveText(["Prime programme"]);
-    await page.evaluate(() => window.select(["prime", "youtube"]));
-    await expect(page.locator("#items p")).toHaveText(["Prime programme", "YouTube programme"]);
+    await page.evaluate(() => window.select(["prime", "netflix"]));
+    await expect(page.locator("#items p")).toHaveText(["Netflix programme", "Prime programme"]);
     expect(feed.requests.some((request) => request.id === "456")).toBe(true);
     expect(new Set(feed.requests.map((request) => request.url)).size).toBe(feed.requests.length);
   } finally {

@@ -2,8 +2,8 @@
   position: relative;
   flex: 0 0 auto;
   width: var(--app-card-size);
-  height: var(--app-card-size);
-  border-radius: 10px;
+  height: calc(var(--app-card-size) * var(--app-card-ratio, 1));
+  border-radius: var(--home-card-radius, 10px);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -11,12 +11,51 @@
   gap: var(--home-app-gap, 22px);
   background: var(--app-background, var(--card));
   transform: translateZ(0);
-  transition: transform var(--motion-duration-focus) ease-out;
+  transition-property: var(--home-card-transition, transform);
+  transition-duration: var(--motion-duration-card-focus, var(--motion-duration-focus));
+  transition-timing-function: var(--home-card-ease, ease-out);
+
+  /* The glass edge, drawn over the artwork rather than under it. */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: inherit;
+    box-shadow: var(--home-card-edge, none);
+    pointer-events: none;
+  }
+
+  /* The light that crosses a focused tile. */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: inherit;
+    background: var(--home-card-sheen, none);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--motion-duration-card-focus, var(--motion-duration-focus)) ease-out;
+  }
 
   &[data-focused="true"] {
-    transform: translateZ(0) scale(1.035);
+    --app-artwork-scale: var(--home-artwork-focus-scale, 1);
+    --app-caption-opacity: var(--home-card-caption, 0);
+
+    transform: translate3d(0, var(--home-card-focus-lift, 0px), 0) scale(var(--home-card-focus-scale, 1.035));
     box-shadow: var(--home-card-focus-shadow);
     z-index: 2;
+
+    &::after {
+      opacity: 1;
+    }
   }
 
   &[data-moving="true"] {

@@ -37,6 +37,8 @@ for (const [build, url] of [
       await expect(drawer).toHaveCSS("animation-duration", "0.2s");
       await openCategory(page, "appearance");
       await expect(content).toHaveCSS("transition-duration", "0.15s, 0.1s, 0.12s");
+      // The first control is Glisse's segmented control, which keeps its own motion.
+      await page.keyboard.press("ArrowDown");
       await expect(page.locator('#editor [data-focused="true"]')).toHaveCSS("transition-duration", "0.1s, 0.1s");
 
       const expectReduced = async () => {
@@ -52,7 +54,7 @@ for (const [build, url] of [
       };
       await page.emulateMedia({ reducedMotion: "reduce" });
       await expectReduced();
-      await page.locator(`[data-key="settings-appearance:${!glassSettings}"]`).click();
+      await page.locator(`[data-key="settings-appearance:${!glassSettings ? "glass" : "classic"}"]`).click();
       expect(await page.evaluate(() => AeroTizen.settings.getSnapshot().glassSettings)).toBe(!glassSettings);
       await expectReduced();
       await page.keyboard.press("ArrowDown");

@@ -30,6 +30,7 @@ export const Home = ({ env }: { env: HomeEnvironment }) => {
     !showContinueWatching &&
     visibleHome.length > 0 &&
     (settings.homeAppLayout === "scroll" || visibleHome.length <= env.columns(settings));
+  const continueFirst = settings.glassSettings && settings.uosAppearance;
   const atAppsEnd = page === "apps" && scroll === appsEndOffset;
   useLayoutEffect(() => {
     env.bridge.focus();
@@ -69,6 +70,7 @@ export const Home = ({ env }: { env: HomeEnvironment }) => {
             style={{ "--home-offset": -scroll + "px", "--apps-end-offset": appsEndOffset + "px" }}
           >
             <div class={styles.page} data-home-page data-page={page} data-docked={dockInputs ? "true" : "false"}>
+              {continueFirst && <ContinueWatchingRow env={env} items={items} visible={showContinueWatching} />}
               <AppGrid
                 env={env}
                 ids={visibleHome}
@@ -92,7 +94,7 @@ export const Home = ({ env }: { env: HomeEnvironment }) => {
               <p id="apps-empty" class={styles.empty} hidden={page === "home" || apps.length > 0}>
                 {t("home.emptyApps")}
               </p>
-              <ContinueWatchingRow env={env} items={items} visible={showContinueWatching} />
+              {!continueFirst && <ContinueWatchingRow env={env} items={items} visible={showContinueWatching} />}
               <InputDock env={env} inputs={inputs} visible={page === "home"} glass={settings.glassSettings} />
             </div>
             {page === "apps" && apps.length > 0 && (

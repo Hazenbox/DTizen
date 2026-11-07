@@ -12,7 +12,7 @@ for (const [build, url] of [
     await page.addInitScript(() =>
       localStorage.setItem(
         "aerotizen.settings.v1",
-        JSON.stringify({ home: ["demo0"], background: "black", showWeather: false }),
+        JSON.stringify({ glassSettings: false, home: ["demo0"], background: "black", showWeather: false }),
       ),
     );
     await page.emulateMedia({ reducedMotion: "no-preference" });

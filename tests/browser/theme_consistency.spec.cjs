@@ -13,6 +13,7 @@ for (const glassSettings of [false, true]) {
           "aerotizen.settings.v1",
           JSON.stringify({
             glassSettings,
+            uosAppearance: false,
             home: ["demo0", "demo1"],
             background: "black",
             showWeather: false,
@@ -53,7 +54,7 @@ for (const glassSettings of [false, true]) {
       await expect(heading).toHaveCSS("font-size", "21px");
       await expect(heading).toHaveCSS("text-transform", "uppercase");
     }
-    const colour = glassSettings ? "rgb(237, 242, 255)" : "rgb(124, 92, 255)";
+    const colour = glassSettings ? "rgb(0, 145, 255)" : "rgb(124, 92, 255)";
     expect(
       await page.locator("#grid [data-id][data-focused=true]").evaluate((n) => getComputedStyle(n).boxShadow),
     ).toContain(colour);

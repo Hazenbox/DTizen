@@ -25,15 +25,15 @@ for (const glassSettings of [false, true]) {
     await expect(page.locator("[data-settings-drawer=frame]")).toHaveAttribute("data-expanded", "false");
     await expect(page.locator("#editor [data-focused=true]")).toHaveAttribute("data-key", "section:appearance");
     await page.keyboard.press("ArrowRight");
-    await page.locator(`[data-key="settings-appearance:${!glassSettings}"]`).click();
+    await page.locator(`[data-key="settings-appearance:${!glassSettings ? "glass" : "classic"}"]`).click();
     await expect(page.locator('#editor [data-focused="true"]')).toHaveAttribute(
       "data-key",
-      `settings-appearance:${!glassSettings}`,
+      `settings-appearance:${!glassSettings ? "glass" : "classic"}`,
     );
     await expect(page.locator("[data-settings-drawer=frame]")).toHaveAttribute("data-expanded", "true");
     await expect(page.locator("#editor [data-focused=true]")).toHaveAttribute(
       "data-key",
-      `settings-appearance:${!glassSettings}`,
+      `settings-appearance:${!glassSettings ? "glass" : "classic"}`,
     );
     await page.keyboard.press("Escape");
     await expect(page.locator("[data-settings-drawer=frame]")).toHaveAttribute("data-expanded", "false");

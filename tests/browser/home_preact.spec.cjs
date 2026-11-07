@@ -8,6 +8,7 @@ test.beforeEach(async ({ page }) => {
       localStorage.setItem(
         "aerotizen.settings.v1",
         JSON.stringify({
+          glassSettings: false,
           home: ["demo0", "demo1", "demo2", "demo3"],
           background: "black",
           showWeather: false,
@@ -152,6 +153,7 @@ test("compiled Home preserves header and input geometry around the resized app g
     localStorage.setItem(
       "aerotizen.settings.v1",
       JSON.stringify({
+        glassSettings: false,
         home: ["demo0", "demo1", "demo2", "demo3"],
         background: "black",
         showWeather: false,

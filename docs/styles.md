@@ -11,8 +11,9 @@ without companion files can stay flat. Apply this structure as components are
 migrated; imports name the component file directly, without a barrel per folder.
 
 Keep theme paint in
-`launcher/css/themes.css`, which defines the default Classic values and the
-`body.glass-ui` overrides. Prefer role names such as `--settings-surface`,
+`launcher/css/themes.css`, which defines the default Classic values, the
+`body.glass-ui` overrides and the `body.uos-ui` overrides that build on Glass
+(see [UOS appearance](uos-appearance.md)). Prefer role names such as `--settings-surface`,
 `--header-focus-surface` and `--menu-border` over new colour literals for shared
 surfaces, text, borders, focus and shadows. Component-specific artwork and input
 state palettes stay with their component.
@@ -79,7 +80,8 @@ Tests use `data-home-header`, `data-header-focus`, `data-clock-part` and
 `data-weather-part`; semantic IDs remain available for integrations.
 
 `HomeAppCard` owns the common app/Fireplace frame, focus, moving state and reorder
-controls. `AppGrid` owns sizes, columns and compact/expanded clock clearance through
+controls. `AppGrid` owns sizes, columns, tile shape (`data-shape`, with `--app-card-ratio` and
+`--app-card-unit`) and compact/expanded clock clearance through
 explicit data attributes. `AppArtwork` owns image geometry; its inherited radius
 keeps images rounded when moving cards expose their overflow.
 `HorizontalScroller` owns clipping and track movement for both

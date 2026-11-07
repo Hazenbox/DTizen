@@ -85,16 +85,20 @@ export const createSettingsActions = (
         view.set({ ...view.getSnapshot(), colourPicker: null });
       });
     },
-    setGlassSettings: (glassSettings) => commit({ glassSettings }),
+    setAppearance: (appearance) =>
+      commit({ glassSettings: appearance !== "classic", uosAppearance: appearance === "uos" }),
     setWeatherPhoto: (weatherPhoto) =>
       commit({ weatherPhoto }, () => {
         services.applyWeatherVisibility();
         services.applyBackground();
       }),
     setContinueWatching: (continueWatching) => commit({ continueWatching }),
-    toggleContinueApp(id) {
-      const selected = settings.getSnapshot().continueWatchingApps;
+    toggleContinueApp(id, visible) {
+      const { continueWatchingAll, continueWatchingApps } = settings.getSnapshot();
+      // Choosing an app ends "every app": the visible ones become the explicit list.
+      const selected = continueWatchingAll ? visible : continueWatchingApps;
       commit({
+        continueWatchingAll: false,
         continueWatchingApps: selected.includes(id) ? selected.filter((app) => app !== id) : [...selected, id],
       });
     },
@@ -131,6 +135,11 @@ export const createSettingsActions = (
       const { MIN, MAX, STEP } = services.config.SPEED;
       const speed =
         Math.round(Math.max(MIN, Math.min(MAX, settings.getSnapshot().speed + direction * STEP)) * 100) / 100;
+      commit({ speed }, () => services.applySpeed(speed));
+    },
+    setSpeedTo(value) {
+      const { MIN, MAX, STEP } = services.config.SPEED;
+      const speed = Math.round(Math.max(MIN, Math.min(MAX, value)) / STEP) * STEP;
       commit({ speed }, () => services.applySpeed(speed));
     },
     saveInputName(port, value) {

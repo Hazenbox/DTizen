@@ -9,6 +9,20 @@
   &:focus-within {
     border-color: var(--settings-focus-border);
   }
+
+  /* Glisse's input draws its own glass. */
+  &[data-glass="true"] {
+    border: 0;
+    background: none;
+
+    .glisse {
+      width: 100%;
+      max-width: none;
+      height: 64px;
+      border-radius: 32px;
+      font-size: 22px;
+    }
+  }
 }
 
 .input {

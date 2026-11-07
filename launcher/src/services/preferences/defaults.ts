@@ -4,7 +4,8 @@ import type { SettingsDefaults } from "../../contracts/preferences";
 
 export const DEFAULT_SETTINGS: SettingsDefaults = {
   home: null, // null selects first-launch defaults; [] retains an empty Home.
-  glassSettings: false,
+  glassSettings: true,
+  uosAppearance: true,
   homeCardColumns: 3,
   homeAppLayout: "grid",
   background: "aurora",
@@ -24,7 +25,8 @@ export const DEFAULT_SETTINGS: SettingsDefaults = {
   clockLayout: "classic",
   aeroClockStyle: "vertical",
   timeFormat: null,
-  continueWatching: false,
+  continueWatching: true,
+  continueWatchingAll: true,
   continueWatchingApps: [],
   showLiveTv: true,
   hideDisconnectedHdmi: false,

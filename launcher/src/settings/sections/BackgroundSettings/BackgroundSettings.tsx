@@ -142,7 +142,9 @@ export const BackgroundSettings = ({ settings, actions, config, backgrounds: lis
                 value={settings.speed}
                 min={config.SPEED.MIN}
                 max={config.SPEED.MAX}
+                step={config.SPEED.STEP}
                 adjusting={adjusting}
+                onChange={settings.glassSettings && settings.uosAppearance ? actions.setSpeedTo : undefined}
                 onSelect={toggleAdjusting}
               />
               <ChoiceOption id="preview" onSelect={actions.preview} inline>

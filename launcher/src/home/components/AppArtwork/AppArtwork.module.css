@@ -7,4 +7,34 @@
   height: 100%;
   object-fit: contain;
   border-radius: inherit;
+  /* The card sets --app-artwork-scale on focus, so artwork sits on its own layer. */
+  transform: scale(var(--app-artwork-scale, 1));
+  transition: transform var(--motion-duration-card-focus, var(--motion-duration-focus)) var(--home-card-ease, ease-out);
+}
+
+/* The focused tile's name, over a scrim at its foot. The card sets
+   --app-caption-opacity on focus, and only some themes turn it on. */
+.caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 44px 22px 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0));
+  color: #fff;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 32px;
+  text-align: center;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: var(--app-caption-opacity, 0);
+  pointer-events: none;
+  transition: opacity var(--motion-duration-card-focus, var(--motion-duration-focus)) ease-out;
+
+  &::before {
+    content: attr(data-title);
+  }
 }

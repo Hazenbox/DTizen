@@ -43,6 +43,7 @@ for (const scenario of [
       localStorage.setItem(
         "aerotizen.settings.v1",
         JSON.stringify({
+          glassSettings: false,
           home: apps.map((app) => app.id),
           cardSize: size,
           background: "black",
@@ -155,6 +156,7 @@ for (const settingsOpen of [false, true]) {
       localStorage.setItem(
         "aerotizen.settings.v1",
         JSON.stringify({
+          glassSettings: false,
           home: [prime],
           background: "black",
           showWeather: false,

@@ -8,6 +8,11 @@ const errors = new WeakMap();
 test.beforeEach(async ({ page }) => {
   const messages = [];
   errors.set(page, messages);
+  // These specs cover Classic and Glass; UOS has its own.
+  await page.addInitScript(() => {
+    if (!localStorage.getItem("aerotizen.settings.v1"))
+      localStorage.setItem("aerotizen.settings.v1", JSON.stringify({ glassSettings: false }));
+  });
   page.on("pageerror", (error) => messages.push(error.message));
   page.on("console", (message) => {
     if (["error", "warning"].includes(message.type())) messages.push(message.text());
@@ -208,7 +213,10 @@ test("date previews stay stable during an opening and refresh on the next openin
 
 test("late TV inventory and hot-plug updates reach Settings without a preference change", async ({ page }) => {
   await page.addInitScript(() => {
-    localStorage.setItem("aerotizen.settings.v1", JSON.stringify({ home: [], tempUnit: "C", timeFormat: "24" }));
+    localStorage.setItem(
+      "aerotizen.settings.v1",
+      JSON.stringify({ glassSettings: false, home: [], tempUnit: "C", timeFormat: "24" }),
+    );
     const tv = (window.testTv = { apps: [], inputs: [], listeners: {} });
     window.tizen = {
       application: { getAppsInfo: (done) => tv.apps.push(done), launchAppControl() {} },
@@ -377,7 +385,7 @@ test("enabling compiled Settings at 23:00 repairs legacy solar cache once and ne
     );
     localStorage.setItem(
       "aerotizen.settings.v1",
-      JSON.stringify({ showWeather: true, weatherPhoto: false, tempUnit: "C" }),
+      JSON.stringify({ glassSettings: false, showWeather: true, weatherPhoto: false, tempUnit: "C" }),
     );
   });
   let release,

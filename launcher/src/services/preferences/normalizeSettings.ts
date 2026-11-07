@@ -60,6 +60,8 @@ export const normalizeSettings = (
   return {
     home: home === null ? null : validHome,
     glassSettings: boolean(data.glassSettings, defaults.glassSettings),
+    // A TV that saved an appearance before UOS existed keeps it.
+    uosAppearance: boolean(saved.uosAppearance, "glassSettings" in saved ? false : defaults.uosAppearance),
     homeCardColumns: typeof columns === "number" && [3, 4, 5].includes(columns) ? columns : defaults.homeCardColumns,
     homeAppLayout: choice(data.homeAppLayout, ["grid", "scroll"], defaults.homeAppLayout),
     background: text(data.background, defaults.background),
@@ -90,6 +92,11 @@ export const normalizeSettings = (
         ? data.timeFormat
         : defaults.timeFormat || locale.timeFormat(),
     continueWatching: boolean(data.continueWatching, defaults.continueWatching),
+    // Saved source choices from before "every app" existed stay as they were.
+    continueWatchingAll: boolean(
+      saved.continueWatchingAll,
+      "continueWatching" in saved || "continueWatchingApps" in saved ? false : defaults.continueWatchingAll,
+    ),
     continueWatchingApps: ids(data.continueWatchingApps, 100),
     showLiveTv: boolean(data.showLiveTv, defaults.showLiveTv),
     hideDisconnectedHdmi: boolean(data.hideDisconnectedHdmi, defaults.hideDisconnectedHdmi),

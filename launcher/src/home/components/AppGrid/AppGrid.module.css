@@ -3,6 +3,9 @@
   --app-card-medium: 368px;
   --app-card-large: 400px;
   --app-card-size: var(--app-card-small);
+  --app-card-ratio: 1;
+  /* The card's shorter side, which sizes artwork and fallback logos. */
+  --app-card-unit: calc(var(--app-card-size) * var(--app-card-ratio));
   --app-columns: 5;
 
   display: grid;
@@ -41,6 +44,22 @@
       --app-card-small: 252px;
       --app-card-medium: 292px;
       --app-card-large: 312px;
+    }
+  }
+
+  /* UOS: 16:9 tiles, with room between rows for the focused tile to lift. */
+  &[data-shape="wide"] {
+    --app-card-small: 320px;
+    --app-card-medium: 400px;
+    --app-card-large: 520px;
+    --app-card-ratio: 0.5625;
+
+    gap: 48px 32px;
+
+    &[data-expanded="true"] {
+      --app-card-small: 296px;
+      --app-card-medium: 368px;
+      --app-card-large: 464px;
     }
   }
 }

@@ -1,5 +1,6 @@
 import type { Store } from "../shared/state/createStore";
 
+export type AppearanceStyle = "classic" | "glass" | "uos";
 export type TimeFormat = "12" | "24";
 export type TemperatureUnit = "C" | "F";
 export type DateFormat = "compact" | "short" | "long" | "numeric-short" | "numeric" | "iso" | "none";
@@ -20,6 +21,7 @@ export interface SettingsValues {
   background: string;
   clockLayout: "classic" | "custom";
   continueWatching: boolean;
+  continueWatchingAll: boolean;
   continueWatchingApps: string[];
   customColour: string;
   customGradient: CustomGradient;
@@ -40,6 +42,7 @@ export interface SettingsValues {
   speed: number;
   tempUnit: TemperatureUnit;
   timeFormat: TimeFormat;
+  uosAppearance: boolean;
   weatherLocation: WeatherLocation | null;
   weatherPhoto: boolean;
   weatherShowLocation: boolean;

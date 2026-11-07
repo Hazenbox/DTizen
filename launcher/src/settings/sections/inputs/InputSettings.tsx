@@ -68,7 +68,13 @@ export const InputSettings = ({ settings, actions, inputs }: Props) => {
       <SettingsSection title={t("inputs.names")}>
         <ControlGroup id="input-names">
           {inputs.map((input) => (
-            <InputName key={input.port} {...input} name={settings.inputNames[input.port]} actions={actions} />
+            <InputName
+              key={input.port}
+              {...input}
+              glass={settings.glassSettings && settings.uosAppearance}
+              name={settings.inputNames[input.port]}
+              actions={actions}
+            />
           ))}
         </ControlGroup>
       </SettingsSection>

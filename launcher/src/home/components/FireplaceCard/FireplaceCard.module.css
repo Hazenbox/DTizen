@@ -6,6 +6,6 @@
 }
 
 .flame {
-  width: calc(var(--app-card-size) * 0.42);
-  height: calc(var(--app-card-size) * 0.42);
+  width: calc(var(--app-card-unit) * 0.42);
+  height: calc(var(--app-card-unit) * 0.42);
 }

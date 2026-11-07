@@ -33,6 +33,9 @@ export const AppArtwork = ({
           onError={artwork.onError}
         />
       ) : null}
+      {artwork.loaded && variant === "home" ? (
+        <span class={styles.caption} data-title={brand.title} aria-hidden="true" />
+      ) : null}
     </>
   );
 };
