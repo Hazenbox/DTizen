@@ -341,7 +341,18 @@ window.AeroTizen.catalog = {
         }
       ],
       "legacy": {
+        "brandPrefixes": ["bbc iplayer"],
         "artworkNames": ["bbc iplayer"]
+      },
+      "fallback": {
+        "background": "#f54997",
+        "logo": {
+          "slug": "bbciplayer",
+          "version": "9.0.0"
+        },
+        "logoColour": "#ffffff",
+        "label": null,
+        "textColour": null
       }
     },
     {
@@ -367,7 +378,18 @@ window.AeroTizen.catalog = {
         }
       ],
       "legacy": {
+        "brandPrefixes": ["itvx"],
         "artworkNames": ["itvx", "itv hub"]
+      },
+      "fallback": {
+        "background": "#deeb52",
+        "logo": {
+          "slug": "itvx",
+          "version": "16.35.0"
+        },
+        "logoColour": "#000000",
+        "label": null,
+        "textColour": null
       }
     },
     {
@@ -380,7 +402,18 @@ window.AeroTizen.catalog = {
         }
       ],
       "legacy": {
+        "brandPrefixes": ["channel 4"],
         "artworkNames": ["channel 4", "all 4"]
+      },
+      "fallback": {
+        "background": "#aaff89",
+        "logo": {
+          "slug": "channel4",
+          "version": "16.35.0"
+        },
+        "logoColour": "#000000",
+        "label": null,
+        "textColour": null
       }
     },
     {
@@ -418,7 +451,18 @@ window.AeroTizen.catalog = {
         }
       ],
       "legacy": {
+        "brandPrefixes": ["samsung tv plus"],
         "artworkNames": ["samsung tv plus"]
+      },
+      "fallback": {
+        "background": "#1428a0",
+        "logo": {
+          "slug": "samsung",
+          "version": "16.35.0"
+        },
+        "logoColour": "#ffffff",
+        "label": null,
+        "textColour": null
       }
     }
   ]

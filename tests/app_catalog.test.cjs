@@ -87,8 +87,8 @@ test("verified app and store IDs select the same record despite renamed or confl
     assert.equal(A.catalog.artworkStoreId(app), "3202306031311");
     assert.equal(A.catalog.brand(app).logo.slug, "stremio");
   }
-  assert.equal(A.catalog.brand({ id: "DqEoaplKlw.bbchybrid", name: "YouTube" }), null);
-  assert.equal(A.catalog.artworkStoreId({ id: "DqEoaplKlw.bbchybrid", name: "Renamed app" }), "3201601007670");
+  assert.equal(A.catalog.brand({ id: "GR7TWEBh5d.BBCSounds", name: "YouTube" }), null);
+  assert.equal(A.catalog.artworkStoreId({ id: "GR7TWEBh5d.BBCSounds", name: "Renamed app" }), "3202003020365");
 });
 
 test("legacy prefix branding does not enable artwork for an unrelated app name", () => {
