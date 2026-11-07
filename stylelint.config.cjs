@@ -1,4 +1,5 @@
 module.exports = {
+  ignoreFiles: ["launcher/src/vendor/**"],
   overrides: [
     {
       files: ["launcher/src/**/*.module.css"],

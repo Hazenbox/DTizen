@@ -23,6 +23,7 @@ module.exports = [
       "test-results/**",
       "playwright-report/**",
       "launcher/js/logos.js",
+      "launcher/src/vendor/**",
     ],
   },
   js.configs.recommended,
